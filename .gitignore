@@ -1,0 +1,21 @@
+# Credentials — never commit
+client_secrets.json
+token.json
+
+# Project context — local only
+zion-shorts-project-context.md
+
+# Video folders
+inbox/
+done/
+output/
+
+# Video files anywhere in the tree
+*.mp4
+
+# Python
+*.pyc
+__pycache__/
+
+# macOS
+.DS_Store
