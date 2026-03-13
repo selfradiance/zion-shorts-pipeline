@@ -1,9 +1,13 @@
 #!/bin/bash
 set -e
 
-INBOX="inbox"
-DONE="done"
-OUTPUT="output"
+# Resolve the directory this script lives in so all paths work regardless of
+# where launchd (or a user) invokes it from.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+INBOX="$SCRIPT_DIR/inbox"
+DONE="$SCRIPT_DIR/done"
+OUTPUT="$SCRIPT_DIR/output"
 LAST_PRESET=5
 
 mkdir -p "$OUTPUT"
@@ -34,7 +38,7 @@ echo "Processing: $FILENAME (preset $PRESET of $LAST_PRESET)"
 # If this fails, set -e aborts here and the tracking file is unchanged,
 # so the next run retries the same preset.
 # Pass --dry-run through if this script was called with it (e.g. for testing).
-python3 shorts_auto.py --input "$FILE" --title "$TITLE" --preset "$PRESET" ${1:+--dry-run}
+python3 "$SCRIPT_DIR/shorts_auto.py" --input "$FILE" --title "$TITLE" --preset "$PRESET" ${1:+--dry-run}
 
 # Rename the generated short to include the preset number and move to output/.
 # Keeps inbox/ clean and gives each output a distinct, non-overwriting name.
