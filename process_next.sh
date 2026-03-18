@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# Ensure Homebrew binaries (ffmpeg, python3, etc.) are on PATH.
+# launchd runs with a minimal PATH that doesn't include /opt/homebrew/bin.
+export PATH="/opt/homebrew/bin:$PATH"
+
 # Resolve the directory this script lives in so all paths work regardless of
 # where launchd (or a user) invokes it from.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
